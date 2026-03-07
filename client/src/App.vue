@@ -3,6 +3,7 @@
     <ThemeToggle />
     <HeroSection />
     <ProjectsSection />
+    <FooterSection />
   </div>
 </template>
 
@@ -11,6 +12,7 @@ import { onMounted } from 'vue'
 import HeroSection from './components/HeroSection.vue'
 import ProjectsSection from './components/ProjectsSection.vue'
 import ThemeToggle from './components/ThemeToggle.vue'
+import FooterSection from './components/FooterSection.vue'
 import { useTheme } from './composables/useTheme'
 
 const { init } = useTheme()
