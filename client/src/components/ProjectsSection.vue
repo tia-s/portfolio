@@ -1,7 +1,7 @@
 <template>
   <section class="projects">
     <div class="projects__inner">
-      <p class="projects__label">Projects</p>
+      <p class="projects__label">Recent Projects</p>
       <div v-if="loading">Loading...</div>
       <div v-else-if="error">{{ error }}</div>
       <div v-else class="projects__grid">
