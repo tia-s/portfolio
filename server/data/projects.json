@@ -32,7 +32,7 @@
   "title": "Caribbean Voices ASR Model",
   "description": "Accent-adapted speech recognition system using parameter-efficient fine-tuning of Whisper",
   "tech": ["Python", "PyTorch", "HuggingFace Transformers", "PEFT (LoRA)", "Librosa"],
-  "url": "https://github.com/tia-s/caribbean-voices-asr",
+  "url": "https://github.com/tia-s/caribbean_voices_asr_model",
 "long_description": "An ASR system adapting Whisper Large-v3 to Caribbean-accented speech using LoRA-based parameter-efficient fine-tuning, with a pipeline for audio preprocessing, seq2seq training, beam-search decoding, and transcription normalization",
 "motivation": "Built for the Zindi Caribbean Voices Hackathon to explore efficient adaptation of large speech models to underrepresented Caribbean accents while working within limited compute constraints",
   "features": [
