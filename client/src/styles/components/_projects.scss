@@ -1,0 +1,25 @@
+@use '../mixins' as *;
+
+.projects {
+  padding-block: var(--space-24);
+
+  &__inner {
+    @include container;
+  }
+
+  &__label {
+    @include label;
+    margin-bottom: var(--space-8);
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-6);
+    margin-top: var(--space-8);
+
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+    }
+  }
+}

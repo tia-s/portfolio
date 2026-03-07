@@ -1,0 +1,45 @@
+[
+  {
+    "id": 1,
+    "title": "Campus Connect",
+    "description": "Tutor-student matching platform using an assignment-problem optimization model",
+    "tech": ["Node.js", "Express", "Sequelize", "MySQL", "JavaScript", "SCSS"],
+    "url": "https://github.com/tia-s/campus_connect_capstone",
+"long_description": "A tutoring platform that models tutor allocation as an assignment problem, using multi-criteria preference vectors to construct a compatibility cost matrix for optimal matching, with schedule feasibility determined through interval-overlap detection",    "motivation": "Built as an undergraduate capstone project to address the lack of a centralized tutoring system for Jamaican university students while exploring algorithmic approaches to preference-based matching",
+    "features": [
+      "Tutor-student matching using weighted preference matrices and similarity scoring",
+      "Multi-criteria ranking of tutors based on specified preferences",
+      "Interval scheduling system to detect compatible availability windows",
+      "Client-server architecture with separated service and controller layers"
+    ]
+  },
+  {
+  "id": 2,
+  "title": "Avocado API",
+  "description": "Comparative API architecture project implementing REST, GraphQL, and SOAP over the same backend service",
+  "tech": ["Java", "Spring Boot", "Spring Data JPA", "GraphQL", "Apache CXF", "PostgreSQL", "JMeter"],
+  "url": "https://github.com/tia-s/avocado-api",
+"long_description": "A Spring Boot project implementing identical data operations through REST, GraphQL, and SOAP APIs backed by a shared service layer and PostgreSQL database, enabling direct comparison of API paradigms and their performance characteristics", 
+ "motivation": "Designed to compare API paradigms under identical conditions while evaluating performance and architectural tradeoffs",
+  "features": [
+    "Shared service layer ensuring identical business logic across all APIs",
+    "Spring Data JPA repository layer with PostgreSQL persistence",
+    "Performance benchmarking using Apache JMeter test plans"
+  ]
+  },
+  {
+  "id": 3,
+  "title": "Caribbean Voices ASR Model",
+  "description": "Accent-adapted speech recognition system using parameter-efficient fine-tuning of Whisper",
+  "tech": ["Python", "PyTorch", "HuggingFace Transformers", "PEFT (LoRA)", "Librosa"],
+  "url": "https://github.com/tia-s/caribbean-voices-asr",
+"long_description": "An ASR system adapting Whisper Large-v3 to Caribbean-accented speech using LoRA-based parameter-efficient fine-tuning, with a pipeline for audio preprocessing, seq2seq training, beam-search decoding, and transcription normalization",
+"motivation": "Built for the Zindi Caribbean Voices Hackathon to explore efficient adaptation of large speech models to underrepresented Caribbean accents while working within limited compute constraints",
+  "features": [
+    "Parameter-efficient fine-tuning of Whisper Large-v3 using LoRA adapters",
+    "Seq2Seq training pipeline using HuggingFace Trainer with mixed precision",
+    "Beam search decoding for stable transcription generation",
+    "Post-processing pipeline for speech normalization"
+  ]
+  }
+]
