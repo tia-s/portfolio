@@ -52,6 +52,12 @@ Create a `.env` file inside the `client` folder (same level as `vite.config.ts`)
 |---|---|
 | `VITE_API_URL` | Base URL of the FastAPI server e.g. `http://localhost:8000` |
 
+Create a `.env` file inside the `server` folder (same level as `requirements.txt`) following format in `.env.examples`. 
+
+| Variable | Description |
+|---|---|
+| `CORS_ORIGINS` | Comma-separated list of allowed origins (e.g. `http://localhost:5173,http://127.0.0.1:5173`) |
+
 ### Client
 ```bash
 cd client
