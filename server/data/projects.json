@@ -41,5 +41,19 @@
     "Beam search decoding for stable transcription generation",
     "Post-processing pipeline for speech normalization"
   ]
-  }
+  },
+  {
+  "id": 4,
+  "title": "Portfolio",
+  "description": "Personal portfolio with a terminal-style search and AI chatbot powered by Llama 3.3 using context from my work",
+  "tech": ["Vue", "TypeScript", "SCSS", "FastAPI", "Python", "Llama 3.3", "RapidFuzz"],
+  "url": "https://github.com/tia-s/portfolio",
+  "long_description": "A single-page portfolio built with Vue 3 and FastAPI, featuring a terminal-style interface with intent detection that routes queries between search and an AI chatbot. The chatbot is powered by Llama 3.3 70B via Groq and uses a lightweight RAG-style approach with fuzzy matching to inject relevant context from a curated Q&A dataset.",
+  "motivation": "I wanted a portfolio that felt more interactive than a typical static site. The terminal interface gave me a way to combine search and conversational interaction to give users more insight into my work and experience.",
+  "features": [
+    "Lightweight RAG pipeline using fuzzy matching to retrieve and inject relevant context",
+    "FastAPI backend with modular endpoints for search, chat, project and profile data",
+    "Vue 3 frontend with responsive design and SCSS styling"
+  ]
+}
 ]

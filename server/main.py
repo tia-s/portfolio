@@ -15,6 +15,10 @@ from rapidfuzz import process, fuzz
 from dotenv import load_dotenv
 load_dotenv()
 
+from groq import Groq
+
+client = Groq(api_key=os.getenv("GROQ_API_KEY"))
+
 app = FastAPI()
 
 app.add_middleware(
@@ -95,24 +99,16 @@ async def chat(request: ChatRequest):
     full_prompt = f"{system_prompt}\n\nContext from conversations with Tianna:\n{persona}"
 
     try:
-        async with httpx.AsyncClient(timeout=30.0) as client:
-            response = await client.post(
-                f"{os.getenv('OLLAMA_URL')}/api/chat",
-                json={
-                    "model": "llama3.2:3b",
-                    "messages": [
-                        {"role": "system", "content": full_prompt},
-                        {"role": "user", "content": request.message}
-                    ],
-                    "stream": False
-                }
-            )
-            response.raise_for_status()
-            data = response.json()
-            return {"response": data["message"]["content"]}
+        response = client.chat.completions.create(
+            model="llama-3.3-70b-versatile",
+            messages=[
+                {"role": "system", "content": full_prompt},
+                {"role": "user", "content": request.message}
+            ]
+        )
 
-    except httpx.RequestError:
-        raise HTTPException(status_code=503, detail="Ollama is not running")
+        return {"response": response.choices[0].message.content}
+
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
