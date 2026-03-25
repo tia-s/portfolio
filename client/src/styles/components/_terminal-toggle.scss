@@ -1,0 +1,32 @@
+.terminal-toggle {
+  position: fixed;
+  top: var(--space-6);
+  right: calc(var(--space-6) + 36px + var(--space-3));
+  z-index: 50;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform var(--transition), box-shadow var(--transition);
+  box-shadow: 0 0 12px var(--color-accent), 0 0 24px var(--color-accent-dark);
+  animation: pulse-glow 2.5s ease-in-out infinite;
+
+  &:hover {
+    transform: scale(1.15);
+    box-shadow: 0 0 20px var(--color-accent), 0 0 40px var(--color-accent-dark);
+    animation: none;
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 12px var(--color-accent), 0 0 24px var(--color-accent-dark); }
+  50%       { box-shadow: 0 0 20px var(--color-accent), 0 0 40px var(--color-accent-dark); }
+}

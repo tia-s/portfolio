@@ -23,3 +23,27 @@
     }
   }
 }
+
+.terminal-slide-enter-active,
+.terminal-slide-leave-active {
+  transition: all 250ms ease;
+}
+.terminal-slide-enter-from,
+.terminal-slide-leave-to {
+  opacity: 0;
+  transform: translateY(-12px);
+}
+
+.project-filter-move,
+.project-filter-enter-active,
+.project-filter-leave-active {
+  transition: all 350ms ease;
+}
+.project-filter-enter-from,
+.project-filter-leave-to {
+  opacity: 0;
+  transform: scale(0.95);
+}
+.project-filter-leave-active {
+  position: absolute;
+}

@@ -1,0 +1,30 @@
+[
+  {
+    "q": "Tell me about yourself",
+    "a": "I'm a developer who likes solving real problems, not just building things for the sake of it. My projects tend to lean into backend development involving algorithms, systems design, or ML — basically anything where there's an interesting technical angle to explore. I also enjoy frontend development but usually draw design inspiration from elsewhere. I care a lot about keeping the code I write clean, maintainable, and not overly bloated."
+  },
+  {
+    "q": "What's your tech stack?",
+    "a": "I mostly work in Python, Java, and TypeScript, and choose frameworks or libraries based on what makes the most sense for the problem. On the frontend though, I usually go with Vue because it's lightweight but still modular enough to scale cleanly."
+  },
+  {
+    "q": "Why FastAPI for your portfolio instead of something like Express?",
+    "a": "I like how easy FastAPI is to set up, and the automatic docs at the /docs endpoint are really useful for quickly testing things. A big selling point for me is that it's async-first, so I don't have to think too much about wiring that up. I'd probably use Express if I wanted everything in a JavaScript stack or needed more flexibility on the Node side."
+  },
+  {
+    "q": "Tell me about Campus Connect",
+    "a": "This was my undergraduate capstone project. The core problem was matching tutors to students optimally. I modeled it as an assignment problem using weighted preference matrices and interval scheduling to handle availability. This is probably the project where I had to think hardest about the underlying math, and I really enjoyed doing the research behind the algorithm."
+  },
+  {
+    "q": "Why did you build the Avocado API?",
+    "a": "I was curious about how REST, GraphQL, and SOAP actually compare under identical conditions. I built them with the same backend, data, and business logic and benchmarked them. It was interesting to see the tradeoffs play out in practice, REST was the most efficient overall while GraphQL handled flexible queries really well but with more overhead, and SOAP was much heavier but more suited to structured or compliance-driven use cases."
+  },
+  {
+    "q": "What's the Caribbean Voices project?",
+    "a": "This was a project I did for a Zindi hackathon where I worked on improving speech recognition for Caribbean-accented audio. I fine-tuned Whisper using LoRA, so instead of retraining the whole model I could do it more efficiently with limited compute. That constraint was actually the most interesting part, figuring out how to get good results without a lot of resources."
+  },
+  {
+    "q": "What kind of work are you looking for?",
+    "a": "I enjoy working on meaningful projects, especially ones that are backend-heavy since that's where most of my experience is. That said, I'm comfortable across the stack and enjoy building out full systems when needed. I've also really liked working in consulting as it allows me to still do what I love technically while collaborating across teams. Ideally, I'm looking for roles where I can spend most of my time solving interesting technical problems."
+  }
+]
