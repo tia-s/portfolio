@@ -4,7 +4,7 @@ A simple, single-page portfolio site built with Vue 3 and FastAPI.
 
 ## Stack
 - **Client** — Vue 3, TypeScript, SCSS, Vite
-- **Server** — FastAPI, Python, JSON data files
+- **Server** — FastAPI, Python, Groq, RapidFuzz, JSON data files
 ## Structure
 ```
 portfolio/
