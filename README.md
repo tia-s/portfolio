@@ -57,6 +57,7 @@ Create a `.env` file inside the `server` folder (same level as `requirements.txt
 | Variable | Description |
 |---|---|
 | `CORS_ORIGINS` | Comma-separated list of allowed origins (e.g. `http://localhost:5173,http://127.0.0.1:5173`) |
+| `GROQ_API_KEY`  | API key for accessing Groq's Llama models                                   |
 
 ### Client
 ```bash
