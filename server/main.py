@@ -92,7 +92,7 @@ async def chat(request: ChatRequest):
     persona = _get_relevant_context(request.message)
 
     system_prompt = _load_system_prompt()
-    full_prompt = f"{system_prompt}\n\nContext from conversations with Tia:\n{persona}"
+    full_prompt = f"{system_prompt}\n\nContext from conversations with Tianna:\n{persona}"
 
     try:
         async with httpx.AsyncClient(timeout=30.0) as client:
