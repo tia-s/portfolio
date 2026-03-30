@@ -74,7 +74,7 @@
   {
   "id": 6,
   "title": "DKVS",
-  "description": "Fault-tolerant distributed key-value store implementing the Raft consensus algorithm from scratch in Go",
+  "description": "Fault-tolerant distributed key-value store implementing the Raft consensus algorithm",
   "tech": ["Go", "Raft", "Docker"],
   "url": "https://github.com/tia-s/dkvs",
   "long_description": "A distributed key-value store built in Go that implements the Raft consensus algorithm from scratch, ensuring consistent shared state across a 3-node cluster even under node failures. Applicable to problems such as rate limiting, distributed configuration, and feature flag management where multiple servers need to agree on shared values reliably.",
