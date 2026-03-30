@@ -61,7 +61,7 @@
   "title": "IDEATranspiler",
   "description": "Transpiler converting legacy VB-style IDEA scripts to Python for modern AML/KYC processing",
   "tech": ["Python", "Lark", "LALR"],
-  "url": "https://github.com/tia-s/idea-transpiler",
+  "url": "https://github.com/tia-s/iss-transpiler",
   "long_description": "A transpiler built with Python and Lark that parses legacy VB-style IDEA scripts using an LALR grammar and generates equivalent Python code, enabling AML/KYC scripts written in legacy IDEA syntax to be processed and analyzed using modern Python.",
   "motivation": "Built to automatically convert legacy VB-style IDEA scripts to Python, removing the bottleneck of manual conversions.",
   "features": [
