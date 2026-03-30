@@ -83,7 +83,6 @@
     "Raft leader election with randomized timeouts to prevent split votes",
     "Log replication with majority quorum commit guarantee",
     "Automatic failover when leader crashes with sub-300ms recovery",
-    "Rejoining nodes automatically catch up via leader heartbeats",
     "Supports SET, DELETE, INCREMENT, and COMPARE_AND_SET operations"
   ]
   }
