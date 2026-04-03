@@ -58,21 +58,6 @@
   },
   {
   "id": 5,
-  "title": "IDEATranspiler",
-  "description": "Transpiler converting legacy VB-style IDEA scripts to Python for modern AML/KYC processing",
-  "tech": ["Python", "Lark", "LALR"],
-  "url": "https://github.com/tia-s/iss-transpiler",
-  "long_description": "A transpiler built with Python and Lark that parses legacy VB-style IDEA scripts using an LALR grammar and generates equivalent Python code, enabling AML/KYC scripts written in legacy IDEA syntax to be processed and analyzed using modern Python.",
-  "motivation": "Built to automatically convert legacy VB-style IDEA scripts to Python, removing the bottleneck of manual conversions.",
-  "features": [
-    "LALR grammar definition for VB-style IDEA syntax",
-    "Parse tree construction and AST traversal using Lark",
-    "Python code generation from parsed legacy scripts",
-    "Automated conversion of AML/KYC audit scripts to modern Python"
-  ]
-  },
-  {
-  "id": 6,
   "title": "DKVS",
   "description": "Fault-tolerant distributed key-value store implementing the Raft consensus algorithm",
   "tech": ["Go", "Raft", "Docker"],
