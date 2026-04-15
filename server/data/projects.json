@@ -27,7 +27,7 @@
     "Beam search decoding for stable transcription generation",
     "Post-processing pipeline for speech normalization"
   ]
-  }
+  },
   {
   "id": 3,
   "title": "Avocado API",
