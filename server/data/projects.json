@@ -15,20 +15,6 @@
   },
   {
   "id": 2,
-  "title": "Avocado API",
-  "description": "Comparative API architecture project implementing REST, GraphQL, and SOAP over the same backend service",
-  "tech": ["Java", "Spring Boot", "Spring Data JPA", "GraphQL", "Apache CXF", "PostgreSQL", "JMeter"],
-  "url": "https://github.com/tia-s/avocado-api",
-"long_description": "A Spring Boot project implementing identical data operations through REST, GraphQL, and SOAP APIs backed by a shared service layer and PostgreSQL database, enabling direct comparison of API paradigms and their performance characteristics", 
- "motivation": "Designed to compare API paradigms under identical conditions while evaluating performance and architectural tradeoffs",
-  "features": [
-    "Shared service layer ensuring identical business logic across all APIs",
-    "Spring Data JPA repository layer with PostgreSQL persistence",
-    "Performance benchmarking using Apache JMeter test plans"
-  ]
-  },
-  {
-  "id": 3,
   "title": "Caribbean Voices ASR Model",
   "description": "Accent-adapted speech recognition system using parameter-efficient fine-tuning of Whisper",
   "tech": ["Python", "PyTorch", "HuggingFace Transformers", "PEFT (LoRA)", "Librosa"],
@@ -40,6 +26,20 @@
     "Seq2Seq training pipeline using HuggingFace Trainer with mixed precision",
     "Beam search decoding for stable transcription generation",
     "Post-processing pipeline for speech normalization"
+  ]
+  }
+  {
+  "id": 3,
+  "title": "Avocado API",
+  "description": "Comparative API architecture project implementing REST, GraphQL, and SOAP over the same backend service",
+  "tech": ["Java", "Spring Boot", "Spring Data JPA", "GraphQL", "Apache CXF", "PostgreSQL", "JMeter"],
+  "url": "https://github.com/tia-s/avocado-api",
+"long_description": "A Spring Boot project implementing identical data operations through REST, GraphQL, and SOAP APIs backed by a shared service layer and PostgreSQL database, enabling direct comparison of API paradigms and their performance characteristics", 
+ "motivation": "Designed to compare API paradigms under identical conditions while evaluating performance and architectural tradeoffs",
+  "features": [
+    "Shared service layer ensuring identical business logic across all APIs",
+    "Spring Data JPA repository layer with PostgreSQL persistence",
+    "Performance benchmarking using Apache JMeter test plans"
   ]
   },
   {
@@ -54,21 +54,6 @@
     "Lightweight RAG pipeline using fuzzy matching to retrieve and inject relevant context",
     "FastAPI backend with modular endpoints for search, chat, project and profile data",
     "Vue 3 frontend with responsive design and SCSS styling"
-  ]
-  },
-  {
-  "id": 5,
-  "title": "DKVS",
-  "description": "Fault-tolerant distributed key-value store implementing the Raft consensus algorithm",
-  "tech": ["Go", "Raft", "Docker"],
-  "url": "https://github.com/tia-s/dkvs",
-  "long_description": "A distributed key-value store built in Go that implements the Raft consensus algorithm from scratch, ensuring consistent shared state across a 3-node cluster even under node failures. Applicable to problems such as rate limiting, distributed configuration, and feature flag management where multiple servers need to agree on shared values reliably.",
-  "motivation": "Applications running across multiple servers have no reliable way to share state without risking inconsistency when nodes fail. This solves the problem at the consensus layer, using the Raft algorithm.",
-  "features": [
-    "Raft leader election with randomized timeouts to prevent split votes",
-    "Log replication with majority quorum commit guarantee",
-    "Automatic failover when leader crashes with sub-300ms recovery",
-    "Supports SET, DELETE, INCREMENT, and COMPARE_AND_SET operations"
   ]
   }
 ]
