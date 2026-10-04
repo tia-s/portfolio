@@ -100,7 +100,7 @@ async def chat(request: ChatRequest):
 
     try:
         response = client.chat.completions.create(
-            model="openai/gpt-oss-20b",
+            model=os.getenv("GROQ_MODEL"),
             messages=[
                 {"role": "system", "content": full_prompt},
                 {"role": "user", "content": request.message}
