@@ -100,7 +100,7 @@ async def chat(request: ChatRequest):
 
     try:
         response = client.chat.completions.create(
-            model="llama-3.3-70b-versatile",
+            model="openai/gpt-oss-20b",
             messages=[
                 {"role": "system", "content": full_prompt},
                 {"role": "user", "content": request.message}
