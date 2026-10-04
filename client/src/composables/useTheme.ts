@@ -1,11 +1,11 @@
 import { ref } from 'vue'
 
-const isDark = ref(false)
+const isDark = ref(true)
 
 export function useTheme() {
   function init() {
     const saved = localStorage.getItem('theme')
-    isDark.value = saved === 'dark'
+    isDark.value = saved === null || saved === 'dark'
     applyTheme()
   }
 
