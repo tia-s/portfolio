@@ -4,9 +4,9 @@
       <div v-if="loading">Loading...</div>
       <div v-else-if="error">{{ error }}</div>
       <template v-else-if="me">
-        <p class="hero__prompt">>_ ~/portfolio</p>
+        <p class="hero__prompt">$ whoami</p>
         <h1 class="hero__heading">
-          Hey, I'm <span class="hero__accent">{{ me.name }}</span>
+          <span class="hero__accent">{{ me.name }}</span>
         </h1>
         <p class="hero__tagline">{{ me.tagline }}</p>
         <div class="hero__links">
