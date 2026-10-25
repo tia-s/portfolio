@@ -60,7 +60,7 @@
     line-height: 1.6;
     &--input    { color: var(--color-text); }
     &--response { color: var(--color-accent); }
-    &--error    { color: #ff7b72; }
+    &--error    { color: var(--color-text-muted); }
     &--warning  { color: #878073; }
   }
 

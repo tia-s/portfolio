@@ -29,27 +29,28 @@ export function useMe() {
   const { language, t } = useLanguage()
   let requestId = 0
 
-  watch(language, async (locale) => {
+  async function load(locale = language.value) {
     const currentRequest = ++requestId
     loading.value = true
     error.value = null
 
     try {
       const response = await fetch(`${API_URL}/me?lang=${locale}`)
-      if (!response.ok) throw new Error(`${response.status} ${response.statusText}`)
+      if (!response.ok) throw new Error('Profile request failed')
       const data: Me = await response.json()
       if (currentRequest === requestId) me.value = data
-    } catch (cause) {
+    } catch {
       if (currentRequest === requestId) {
-        const detail = cause instanceof Error ? `: ${cause.message}` : ''
-        error.value = `${t('profileError')}${detail}`
+        error.value = t('profileError')
       }
     } finally {
       if (currentRequest === requestId) loading.value = false
     }
-  }, { immediate: true })
+  }
 
-  return { me, loading, error }
+  watch(language, locale => load(locale), { immediate: true })
+
+  return { me, loading, error, retry: () => load() }
 }
 
 export function useProjects() {
@@ -59,25 +60,26 @@ export function useProjects() {
   const { language, t } = useLanguage()
   let requestId = 0
 
-  watch(language, async (locale) => {
+  async function load(locale = language.value) {
     const currentRequest = ++requestId
     loading.value = true
     error.value = null
 
     try {
       const response = await fetch(`${API_URL}/projects?lang=${locale}`)
-      if (!response.ok) throw new Error(`${response.status} ${response.statusText}`)
+      if (!response.ok) throw new Error('Projects request failed')
       const data: Project[] = await response.json()
       if (currentRequest === requestId) projects.value = data
-    } catch (cause) {
+    } catch {
       if (currentRequest === requestId) {
-        const detail = cause instanceof Error ? `: ${cause.message}` : ''
-        error.value = `${t('projectsError')}${detail}`
+        error.value = t('projectsError')
       }
     } finally {
       if (currentRequest === requestId) loading.value = false
     }
-  }, { immediate: true })
+  }
 
-  return { projects, loading, error }
+  watch(language, locale => load(locale), { immediate: true })
+
+  return { projects, loading, error, retry: () => load() }
 }

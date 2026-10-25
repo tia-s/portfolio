@@ -8,13 +8,19 @@
           v-if="terminalOpen"
           :lines="lines"
           :loading="loading"
+          :last-query="lastQuery"
           @submit="submit"
           @close="terminalOpen = false"
         />
       </Transition>
 
       <div v-if="projectsLoading && projects.length === 0">{{ t('loading') }}</div>
-      <div v-else-if="projectsError">{{ projectsError }}</div>
+      <div v-else-if="projectsError" class="api-error" role="alert">
+        <p>
+          {{ projectsError }}<a href="https://github.com/tia-s" target="_blank" rel="noopener noreferrer">{{ t('githubLink') }}</a>{{ t('projectsErrorSuffix') }}
+        </p>
+        <button class="api-error__retry" type="button" @click="retryProjects">{{ t('retry') }}</button>
+      </div>
       <TransitionGroup v-else name="project-filter" tag="div" class="projects__grid">
         <ProjectCard
           v-for="(project, i) in displayedProjects"
@@ -47,7 +53,7 @@ import { useTerminal } from '../composables/useTerminal'
 import type { Project } from '../composables/usePortfolioApi'
 import { useLanguage } from '../composables/useLanguage'
 
-const { projects, loading: projectsLoading, error: projectsError } = useProjects()
+const { projects, loading: projectsLoading, error: projectsError, retry: retryProjects } = useProjects()
 const { language, t } = useLanguage()
 const selectedProject = ref<Project | null>(null)
 const terminalOpen = ref(true)
@@ -57,7 +63,7 @@ const displayedProjects = computed(() =>
   filteredProjects.value !== null ? filteredProjects.value : projects.value
 )
 
-const { lines, loading, submit } = useTerminal((results) => {
+const { lines, loading, lastQuery, submit } = useTerminal((results) => {
   filteredProjects.value = results
 })
 

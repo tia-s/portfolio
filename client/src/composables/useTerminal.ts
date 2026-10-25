@@ -14,6 +14,7 @@ export function useTerminal(onSearchResults: (projects: Project[] | null) => voi
   const { language, t } = useLanguage()
   const lines = ref<TerminalLine[]>(welcomeLines())
   const loading = ref(false)
+  const lastQuery = ref('')
 
   function welcomeLines(): TerminalLine[] {
     return [
@@ -33,7 +34,7 @@ export function useTerminal(onSearchResults: (projects: Project[] | null) => voi
     const isQuestion = /^(why|what|how|tell|who|when|is|are|do|did|can|could|pourquoi|quoi|comment|raconte|qui|quand|est-ce|est|sont|peux|quel|quelle)/i.test(trimmed)
     const isLong = trimmed.split(' ').length > 3
     const hasQuestionMark = trimmed.endsWith('?')
-    const isGreeting = /^(hi|hello|hey|sup|yo|howdy|hiya|what's up|wassup|bonjour|salut|coucou|bonsoir)[\s!?]*$/i.test(trimmed)
+    const isGreeting = /^(hi|hello|hey|sup|yo|howdy|hiya|what(?:\x27|’)s up|wassup|bonjour|salut|coucou|bonsoir)[\s!?]*$/i.test(trimmed)
 
     return isGreeting || isQuestion || isLong || hasQuestionMark ? 'chat' : 'search'
   }
@@ -41,6 +42,7 @@ export function useTerminal(onSearchResults: (projects: Project[] | null) => voi
   async function submit(input: string) {
     const trimmed = input.trim()
     if (!trimmed) return
+    lastQuery.value = trimmed
 
     const intent = detectIntent(trimmed)
     const label = intent === 'search' ? '/search' : '/ask'
@@ -67,12 +69,22 @@ export function useTerminal(onSearchResults: (projects: Project[] | null) => voi
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ message: trimmed, language: language.value })
         })
-        if (!res.ok) throw new Error(`${res.status} ${res.statusText}`)
+        if (!res.ok) {
+          if (res.status === 503) {
+            lines.value.push({ type: 'error', text: t('chatUnavailable') })
+            return
+          }
+          throw new Error('Chat request failed')
+        }
         const data = await res.json()
+        if (typeof data.response !== 'string' || !data.response.trim()) {
+          lines.value.push({ type: 'error', text: t('chatUnavailable') })
+          return
+        }
         lines.value.push({ type: 'response', text: data.response })
       }
     } catch {
-      lines.value.push({ type: 'error', text: t('serverError') })
+      lines.value.push({ type: 'error', text: t('chatUnavailable') })
     } finally {
       loading.value = false
     }
@@ -83,5 +95,5 @@ export function useTerminal(onSearchResults: (projects: Project[] | null) => voi
     onSearchResults(null)
   }
 
-  return { lines, loading, submit, clear }
+  return { lines, loading, lastQuery, submit, clear }
 }

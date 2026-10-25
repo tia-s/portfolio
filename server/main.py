@@ -3,6 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
 import json
+import logging
 import os 
 from typing import Literal
 
@@ -18,7 +19,7 @@ load_dotenv()
 
 from groq import Groq
 
-client = Groq(api_key=os.getenv("GROQ_API_KEY"))
+logger = logging.getLogger(__name__)
 
 app = FastAPI()
 
@@ -105,24 +106,31 @@ def get_project(project_id: int, lang: Literal["en", "fr"] = "en"):
 
 @app.post("/chat")
 async def chat(request: ChatRequest):
-    persona = _get_relevant_context(request.message, request.language)
-
-    system_prompt = _load_system_prompt(request.language)
-    full_prompt = f"{system_prompt}\n\nContext from conversations with Tianna:\n{persona}"
-
+    api_key = os.getenv("GROQ_API_KEY")
+    model = os.getenv("GROQ_MODEL")
+    if not api_key or not model:
+        logger.warning("Chat is unavailable because its provider is not configured")
+        raise HTTPException(status_code=503, detail="chat_unavailable")
     try:
-        response = client.chat.completions.create(
-            model=os.getenv("GROQ_MODEL"),
+        persona = _get_relevant_context(request.message, request.language)
+        system_prompt = _load_system_prompt(request.language)
+        full_prompt = f"{system_prompt}\n\nContext from conversations with Tianna:\n{persona}"
+        response = Groq(api_key=api_key).chat.completions.create(
+            model=model,
             messages=[
                 {"role": "system", "content": full_prompt},
                 {"role": "user", "content": request.message}
             ]
         )
 
-        return {"response": response.choices[0].message.content}
+        content = response.choices[0].message.content
+        if not content or not content.strip():
+            raise RuntimeError("Chat provider returned an empty response")
+        return {"response": content}
 
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+    except Exception:
+        logger.exception("Chat completion failed")
+        raise HTTPException(status_code=503, detail="chat_unavailable") from None
 
 @app.get("/search")
 async def search(q: str, lang: Literal["en", "fr"] = "en"):

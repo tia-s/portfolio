@@ -12,10 +12,24 @@
       <div
         v-for="(line, i) in lines"
         :key="i"
-        :class="['terminal__line', `terminal__line--${line.type}`]"
+        :class="[
+          'terminal__line',
+          `terminal__line--${line.type}`,
+          { 'api-error': line.type === 'error', 'api-error--terminal': line.type === 'error' },
+        ]"
+        :role="line.type === 'error' ? 'alert' : undefined"
       >
         <span v-if="line.type === 'input'" class="terminal__prompt">❯ </span>
-        {{ line.text }}
+        <span :class="{ 'terminal__error-message': line.type === 'error' }">{{ line.text }}</span>
+        <button
+          v-if="line.type === 'error' && lastQuery"
+          class="api-error__retry terminal__retry"
+          type="button"
+          :disabled="loading"
+          @click="emit('submit', lastQuery)"
+        >
+          {{ t('retry') }}
+        </button>
       </div>
         <div v-if="loading" class="terminal__line terminal__line--response terminal__loading">
             <span class="terminal__loading-text">{{ t('askingTianna') }}</span>
@@ -49,6 +63,7 @@ import { useLanguage } from '../composables/useLanguage'
 const props = defineProps<{
   lines: TerminalLine[]
   loading: boolean
+  lastQuery: string
 }>()
 
 const emit = defineEmits<{

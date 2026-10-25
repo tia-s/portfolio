@@ -3,7 +3,7 @@ import router from '../router'
 
 export type Language = 'en' | 'fr'
 
-const language = ref<Language>(window.location.pathname === '/fr' ? 'fr' : 'en')
+const language = ref<Language>(window.location.pathname === '/fr' || window.location.pathname.startsWith('/fr/') ? 'fr' : 'en')
 const isSwitching = ref(false)
 
 const translations = {
@@ -12,8 +12,18 @@ const translations = {
     switchThemeDark: 'Switch to dark mode',
     recentProjects: 'Recent Projects',
     loading: 'Loading...',
-    profileError: 'Failed to load profile data',
-    projectsError: 'Failed to load projects',
+    profileError: 'Tianna\'s profile is playing hide and seek. Her ',
+    profileErrorSuffix: ' is the only proof she exists.',
+    projectsError: 'Tianna\'s projects are taking a coffee break. See what\'s brewing on ',
+    projectsErrorSuffix: '.',
+    linkedinLink: 'LinkedIn',
+    githubLink: 'GitHub',
+    retry: 'Try again',
+    chatUnavailable: 'Tianna\'s chatbot is feeling a bit overstimulated. Give it a moment to decompress while you explore her projects below.',
+    notFoundEyebrow: 'ERROR 404 · NOTHING TO SEE HERE',
+    notFoundTitle: 'Typo or time traveller?',
+    notFoundDescription: 'Either way, this page isn\'t here.',
+    backToPortfolio: 'Let\'s head back home',
     close: 'Close',
     motivation: 'Motivation',
     techStack: 'Tech Stack',
@@ -30,7 +40,6 @@ const translations = {
     terminalDisclaimer: '⚠ Heads up: I\'m a lightweight chatbot based on limited conversations with Tianna, so I might not always get things exactly right.',
     noProjects: 'No projects found for "{query}". Try a different keyword.',
     foundProjects: 'Found {count} project{plural} matching "{query}"',
-    serverError: 'Something went wrong. Is the server running?',
     githubProfile: 'GitHub profile',
     linkedinProfile: 'LinkedIn profile',
     emailTianna: 'Email Tianna',
@@ -41,8 +50,18 @@ const translations = {
     switchThemeDark: 'Passer en mode sombre',
     recentProjects: 'Projets récents',
     loading: 'Chargement...',
-    profileError: 'Échec du chargement du profil',
-    projectsError: 'Échec du chargement des projets',
+    profileError: 'Le profil de Tianna préfère rester anonyme pour l\'instant. Pour en savoir plus, ça se passe sur ',
+    profileErrorSuffix: '.',
+    projectsError: 'Les projets de Tianna jouent la carte du mystère. Passez plutôt par la porte de derrière sur ',
+    projectsErrorSuffix: '.',
+    linkedinLink: 'LinkedIn',
+    githubLink: 'GitHub',
+    retry: 'Réessayer',
+    chatUnavailable: 'Le chatbot de Tianna a vidé sa batterie sociale. Laissez-lui un moment pour recharger, ou jetez un œil à ses projets ci-dessous.',
+    notFoundEyebrow: 'ERREUR 404 · RIEN À VOIR ICI',
+    notFoundTitle: 'Vous cherchiez un bug ?',
+    notFoundDescription: 'Super, vous avez trouvé un écran blanc. Vous pouvez fêter ça en retournant sur le site.',
+    backToPortfolio: 'Retour chez Tianna',
     close: 'Fermer',
     motivation: 'Motivation',
     techStack: 'Technologies',
@@ -53,13 +72,12 @@ const translations = {
     closeTerminal: 'Fermer le terminal',
     openTerminal: 'Ouvrir le terminal',
     askingTianna: 'un instant, je demande à Tianna...',
-    terminalPlaceholder: 'saisissez une recherche ou une question...',
+    terminalPlaceholder: 'posez une question ou cherchez un sujet...',
     terminalWelcome: 'Bienvenue dans le terminal de mon portfolio. Saisissez une recherche ou posez une question.',
     terminalExamples: 'Essayez : « python », « spring boot » ou « quelles technologies utilise Tianna ? »',
     terminalDisclaimer: '⚠ À savoir : ce chatbot léger se base sur un nombre limité de conversations avec Tianna. Ses réponses ne sont donc pas toujours exactes.',
     noProjects: 'Aucun projet trouvé pour « {query} ». Essayez un autre mot-clé.',
     foundProjects: '{count} projet{plural} trouvé{plural} pour « {query} »',
-    serverError: 'Une erreur est survenue. Le serveur est-il démarré ?',
     githubProfile: 'Profil GitHub',
     linkedinProfile: 'Profil LinkedIn',
     emailTianna: 'Écrire à Tianna',
@@ -73,7 +91,7 @@ export function useLanguage() {
   const isFrench = computed(() => language.value === 'fr')
 
   function syncRoute(path: string) {
-    language.value = path === '/fr' ? 'fr' : 'en'
+    language.value = path === '/fr' || path.startsWith('/fr/') ? 'fr' : 'en'
     document.documentElement.lang = language.value
     document.title = language.value === 'fr'
       ? 'Tianna-Lee Salmon | Ingénieure logiciel'
