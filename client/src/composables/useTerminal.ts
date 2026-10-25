@@ -1,5 +1,6 @@
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import type { Project } from './usePortfolioApi'
+import { useLanguage } from './useLanguage'
 
 const API_URL = import.meta.env.VITE_API_URL
 
@@ -10,19 +11,29 @@ export type TerminalLine =
   | { type: 'warning'; text: string }
 
 export function useTerminal(onSearchResults: (projects: Project[] | null) => void) {
-  const lines = ref<TerminalLine[]>([
-    { type: 'response', text: 'Welcome to my portfolio terminal. Type a search query or ask a question.' },
-    { type: 'response', text: 'Try: "python", "spring boot", or ask "what is Tianna\'s tech stack?"' },
-    { type: 'warning', text: '⚠ Heads up: I\'m a lightweight chatbot based on limited conversations with Tianna, so I might not always get things exactly right.' },
-  ])
+  const { language, t } = useLanguage()
+  const lines = ref<TerminalLine[]>(welcomeLines())
   const loading = ref(false)
+
+  function welcomeLines(): TerminalLine[] {
+    return [
+      { type: 'response', text: t('terminalWelcome') },
+      { type: 'response', text: t('terminalExamples') },
+      { type: 'warning', text: t('terminalDisclaimer') },
+    ]
+  }
+
+  watch(language, () => {
+    lines.value = welcomeLines()
+    onSearchResults(null)
+  })
 
   function detectIntent(input: string): 'search' | 'chat' {
     const trimmed = input.trim()
-    const isQuestion = /^(why|what|how|tell|who|when|is|are|do|did|can|could)/i.test(trimmed)
+    const isQuestion = /^(why|what|how|tell|who|when|is|are|do|did|can|could|pourquoi|quoi|comment|raconte|qui|quand|est-ce|est|sont|peux|quel|quelle)/i.test(trimmed)
     const isLong = trimmed.split(' ').length > 3
     const hasQuestionMark = trimmed.endsWith('?')
-    const isGreeting = /^(hi|hello|hey|sup|yo|howdy|hiya|what's up|wassup)[\s!?]*$/i.test(trimmed)
+    const isGreeting = /^(hi|hello|hey|sup|yo|howdy|hiya|what's up|wassup|bonjour|salut|coucou|bonsoir)[\s!?]*$/i.test(trimmed)
 
     return isGreeting || isQuestion || isLong || hasQuestionMark ? 'chat' : 'search'
   }
@@ -39,27 +50,29 @@ export function useTerminal(onSearchResults: (projects: Project[] | null) => voi
 
     try {
       if (intent === 'search') {
-        const res = await fetch(`${API_URL}/search?q=${encodeURIComponent(trimmed)}`)
+        const res = await fetch(`${API_URL}/search?q=${encodeURIComponent(trimmed)}&lang=${language.value}`)
+        if (!res.ok) throw new Error(`${res.status} ${res.statusText}`)
         const data: Project[] = await res.json()
         onSearchResults(data)
         lines.value.push({
           type: 'response',
           text: data.length
-            ? `Found ${data.length} project${data.length > 1 ? 's' : ''} matching "${trimmed}"`
-            : `No projects found for "${trimmed}". Try a different keyword.`
+            ? t('foundProjects', { count: data.length, plural: data.length > 1 ? 's' : '', query: trimmed })
+            : t('noProjects', { query: trimmed })
         })
       } else {
         onSearchResults(null)
         const res = await fetch(`${API_URL}/chat`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ message: trimmed })
+          body: JSON.stringify({ message: trimmed, language: language.value })
         })
+        if (!res.ok) throw new Error(`${res.status} ${res.statusText}`)
         const data = await res.json()
         lines.value.push({ type: 'response', text: data.response })
       }
     } catch {
-      lines.value.push({ type: 'error', text: 'Something went wrong. Is the server running?' })
+      lines.value.push({ type: 'error', text: t('serverError') })
     } finally {
       loading.value = false
     }

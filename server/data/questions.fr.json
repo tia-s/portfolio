@@ -1,0 +1,30 @@
+[
+  {
+    "q": "Parle-moi de toi",
+    "a": "Tianna est développeuse et aime résoudre de vrais problèmes, pas simplement créer des choses pour le plaisir. Ses projets portent surtout sur le développement dorsal, les algorithmes, la conception de systèmes ou l'apprentissage automatique — bref, tout ce qui présente un défi technique intéressant. Elle apprécie aussi le développement frontal, même si elle puise souvent son inspiration ailleurs pour le design. Elle tient à écrire du code propre, facile à maintenir et sans complexité superflue."
+  },
+  {
+    "q": "Quelles technologies utilises-tu ?",
+    "a": "Tianna travaille surtout avec Python, Java et TypeScript. Elle choisit ses frameworks et bibliothèques selon ce qui convient le mieux au problème. Pour le développement frontal, elle privilégie généralement Vue, léger et assez modulaire pour évoluer proprement."
+  },
+  {
+    "q": "Pourquoi utiliser FastAPI pour ton portfolio plutôt qu'Express ?",
+    "a": "Tianna apprécie la simplicité de mise en place de FastAPI et la documentation automatique à /docs, pratique pour tester rapidement. Le fait que le framework soit conçu pour l'asynchrone lui plaît aussi : moins de configuration à gérer. Elle choisirait probablement Express pour une pile entièrement JavaScript ou si elle avait besoin de plus de flexibilité côté Node."
+  },
+  {
+    "q": "Parle-moi de Campus Connect",
+    "a": "C'était le projet de fin d'études de premier cycle de Tianna. L'objectif principal était de jumeler les tuteurs et les étudiants de façon optimale. Elle a modélisé le problème comme un problème d'affectation, avec des matrices de préférences pondérées et une planification par intervalles pour tenir compte des disponibilités. C'est probablement le projet qui lui a demandé le plus de réflexion mathématique, et elle a beaucoup aimé les recherches sur l'algorithme."
+  },
+  {
+    "q": "Pourquoi as-tu créé Avocado API ?",
+    "a": "Tianna voulait comparer REST, GraphQL et SOAP dans les mêmes conditions. Elle les a donc créés avec le même service dorsal, les mêmes données et la même logique métier, puis en a mesuré les performances. REST s'est révélé le plus efficace globalement, tandis que GraphQL offrait des requêtes flexibles avec davantage de surcharge. SOAP était plus lourd, mais mieux adapté aux usages structurés ou soumis à des exigences de conformité."
+  },
+  {
+    "q": "Qu'est-ce que le projet Caribbean Voices ?",
+    "a": "Tianna a réalisé ce projet dans le cadre d'un hackathon Zindi pour améliorer la reconnaissance vocale d'enregistrements avec des accents caribéens. Elle a affiné Whisper avec LoRA, ce qui lui a permis d'éviter de réentraîner tout le modèle et de travailler plus efficacement avec peu de ressources de calcul. La contrainte la plus intéressante était de trouver comment obtenir de bons résultats avec des moyens limités."
+  },
+  {
+    "q": "Quel type de poste recherches-tu ?",
+    "a": "Tianna aime travailler sur des projets utiles, particulièrement ceux axés sur le développement dorsal, son principal domaine d'expérience. Elle est aussi à l'aise dans les autres couches et apprécie de pouvoir construire des systèmes complets. Elle a également beaucoup aimé le conseil, qui lui permet de faire du travail technique tout en collaborant avec différentes équipes. Elle cherche idéalement un poste où elle pourra consacrer l'essentiel de son temps à résoudre des problèmes techniques intéressants."
+  }
+]

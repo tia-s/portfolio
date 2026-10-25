@@ -4,6 +4,7 @@
     <a
         v-if="project.url"
         :href="project.url"
+        :aria-label="t('openProjectGitHub')"
         target="_blank"
         rel="noopener noreferrer"
         @click.stop
@@ -25,6 +26,7 @@
 import { computed } from 'vue'
 import { Github } from 'lucide-vue-next'
 import type { Project } from '../composables/usePortfolioApi'
+import { useLanguage } from '../composables/useLanguage'
 
 const props = defineProps<{
   project: Project
@@ -36,6 +38,7 @@ const emit = defineEmits<{
 }>()
 
 const MAX_VISIBLE_TAGS = 3
+const { t } = useLanguage()
 const visibleTech = computed(() => props.project.tech.slice(0, MAX_VISIBLE_TAGS))
 const hiddenCount = computed(() => Math.max(0, props.project.tech.length - MAX_VISIBLE_TAGS))
 </script>

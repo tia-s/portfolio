@@ -5,7 +5,7 @@
       <span class="terminal__dot terminal__dot--yellow" />
       <span class="terminal__dot terminal__dot--green" />
       <span class="terminal__bar-title">portfolio — bash</span>
-      <button class="terminal__close" @click="$emit('close')">✕</button>
+      <button class="terminal__close" @click="$emit('close')" :aria-label="t('close')">✕</button>
     </div>
 
     <div class="terminal__output" ref="outputEl">
@@ -18,7 +18,7 @@
         {{ line.text }}
       </div>
         <div v-if="loading" class="terminal__line terminal__line--response terminal__loading">
-            <span class="terminal__loading-text">hang on, asking Tianna...</span>
+            <span class="terminal__loading-text">{{ t('askingTianna') }}</span>
             <span class="terminal__cursor" />
         </div>
     </div>
@@ -29,7 +29,7 @@
         ref="inputEl"
         v-model="inputValue"
         class="terminal__input"
-        placeholder="type a search query or question..."
+        :placeholder="t('terminalPlaceholder')"
         @keydown.enter="handleSubmit"
         @keydown.up.prevent="historyBack"
         @keydown.down.prevent="historyForward"
@@ -44,6 +44,7 @@
 <script setup lang="ts">
 import { ref, watch, nextTick } from 'vue'
 import type { TerminalLine } from '../composables/useTerminal'
+import { useLanguage } from '../composables/useLanguage'
 
 const props = defineProps<{
   lines: TerminalLine[]
@@ -60,6 +61,7 @@ const inputEl = ref<HTMLInputElement | null>(null)
 const outputEl = ref<HTMLElement | null>(null)
 const history = ref<string[]>([])
 const historyIndex = ref(-1)
+const { t } = useLanguage()
 
 function handleSubmit() {
   if (!inputValue.value.trim() || props.loading) return

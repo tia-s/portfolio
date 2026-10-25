@@ -1,0 +1,67 @@
+[
+  {
+    "id": 1,
+    "title": "Campus Connect",
+    "description": "Plateforme de jumelage entre tuteurs et étudiants fondée sur un modèle d'optimisation de problèmes d'affectation",
+    "tech": ["Node.js", "Express", "Sequelize", "MySQL", "JavaScript", "SCSS"],
+    "url": "https://github.com/tia-s/campus-connect",
+    "long_description": "Plateforme de tutorat qui modélise l'affectation des tuteurs comme un problème d'affectation. Des vecteurs de préférences multicritères servent à construire une matrice de coûts de compatibilité pour optimiser les jumelages, tandis que la faisabilité des horaires est déterminée par détection des chevauchements d'intervalles.",
+    "motivation": "Réalisé comme projet de fin d'études de premier cycle pour répondre au manque de système centralisé de tutorat destiné aux étudiants universitaires jamaïcains, tout en explorant des méthodes algorithmiques de jumelage fondé sur les préférences.",
+    "features": [
+      "Jumelage tuteur-étudiant à l'aide de matrices de préférences pondérées et d'un score de similarité",
+      "Classement multicritère des tuteurs selon les préférences indiquées",
+      "Planification par intervalles pour repérer les plages de disponibilité compatibles",
+      "Architecture client-serveur séparant les couches de services et de contrôleurs"
+    ]
+  },
+  {
+    "id": 2,
+    "title": "Modèle ASR Caribbean Voices",
+    "description": "Système de reconnaissance vocale adapté aux accents par réglage fin efficace en paramètres de Whisper",
+    "tech": ["Python", "PyTorch", "HuggingFace Transformers", "PEFT (LoRA)", "Librosa"],
+    "url": "https://github.com/tia-s/caribbean-asr",
+    "long_description": "Système de reconnaissance automatique de la parole qui adapte Whisper Large-v3 à la parole avec des accents caribéens au moyen du réglage fin efficace en paramètres avec LoRA. Le pipeline comprend le prétraitement audio, l'entraînement seq2seq, le décodage par recherche en faisceau et la normalisation des transcriptions.",
+    "motivation": "Réalisé pour le hackathon Zindi Caribbean Voices afin d'explorer l'adaptation efficace de grands modèles de reconnaissance vocale aux accents caribéens sous-représentés, malgré des ressources de calcul limitées.",
+    "features": [
+      "Réglage fin efficace en paramètres de Whisper Large-v3 à l'aide d'adaptateurs LoRA",
+      "Pipeline d'entraînement seq2seq avec HuggingFace Trainer et précision mixte",
+      "Décodage par recherche en faisceau pour produire des transcriptions stables",
+      "Pipeline de post-traitement pour la normalisation de la parole"
+    ]
+  },
+  {
+    "id": 3,
+    "title": "Avocado API",
+    "description": "Projet comparatif d'architectures d'API mettant en œuvre REST, GraphQL et SOAP avec le même service dorsal",
+    "tech": ["Java", "Spring Boot", "Spring Data JPA", "GraphQL", "Apache CXF", "PostgreSQL", "JMeter"],
+    "url": "https://github.com/tia-s/avocado-api",
+    "long_description": "Projet Spring Boot qui met en œuvre les mêmes opérations sur les données au moyen d'API REST, GraphQL et SOAP reposant sur une couche de services partagée et une base PostgreSQL. Il permet de comparer directement les paradigmes d'API et leurs caractéristiques de performance.",
+    "motivation": "Conçu pour comparer différents paradigmes d'API dans des conditions identiques et évaluer leurs compromis en matière de performance et d'architecture.",
+    "features": [
+      "Couche de services partagée garantissant la même logique métier pour toutes les API",
+      "Couche de dépôt Spring Data JPA avec persistance PostgreSQL",
+      "Analyse comparative des performances au moyen de plans de test Apache JMeter"
+    ]
+  },
+  {
+  "id": 4,
+  "title": "Polyphonic Scorer",
+  "description": "Un pipeline de transcription audio qui nettoie, quantifie et répartit les événements de notes de Basic Pitch en partitions MusicXML lisibles",
+  "tech": [
+    "Python",
+    "NumPy",
+    "basic-pitch",
+    "music21",
+    "MusicXML"
+  ],
+  "url": "https://github.com/tia-s/polyphonic-engine",
+  "long_description": "Un pipeline en 5 étapes conçu pour traiter les sorties brutes d'apprentissage automatique de basic-pitch, utilisant des algorithmes tels que les boucles à verrouillage de phase (PLL) et l'estimation par noyau pour gérer le rubato, nettoyer les artefacts acoustiques et générer des partitions standardisées.",
+  "motivation": "Conçu pour combler le fossé entre les transcriptions audio ML brutes et les logiciels de notation rigides en interprétant le micro-timing humain et en filtrant les défauts acoustiques.",
+  "features": [
+    "Pipeline en 5 étapes : débruitage, tempo, quantification et séparation des voix",    
+    "Suivi élastique du rubato via une boucle à verrouillage de phase (PLL) pour adapter les variations de tempo",
+    "Séparation dynamique des voix avec suivi des contours de la main et assignation de la direction des hampes",
+    "Détection automatisée de la tonalité à l'aide de l'algorithme de Krumhansl-Schmuckler"
+  ]
+}
+]

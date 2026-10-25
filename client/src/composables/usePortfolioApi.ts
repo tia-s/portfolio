@@ -1,4 +1,5 @@
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
+import { useLanguage } from './useLanguage'
 
 const API_URL = import.meta.env.VITE_API_URL
 
@@ -25,35 +26,58 @@ export function useMe() {
   const me = ref<Me | null>(null)
   const loading = ref(true)
   const error = ref<string | null>(null)
+  const { language, t } = useLanguage()
+  let requestId = 0
 
-  fetch(`${API_URL}/me`)
-    .then(r => {
-      if (!r.ok) {
-        throw new Error(`${r.status} ${r.statusText}`)
+  watch(language, async (locale) => {
+    const currentRequest = ++requestId
+    loading.value = true
+    error.value = null
+
+    try {
+      const response = await fetch(`${API_URL}/me?lang=${locale}`)
+      if (!response.ok) throw new Error(`${response.status} ${response.statusText}`)
+      const data: Me = await response.json()
+      if (currentRequest === requestId) me.value = data
+    } catch (cause) {
+      if (currentRequest === requestId) {
+        const detail = cause instanceof Error ? `: ${cause.message}` : ''
+        error.value = `${t('profileError')}${detail}`
       }
-      return r.json()
-    })
-    .then(data => { me.value = data })
-    .catch(e => { error.value = `Failed to load profile data: ${e.message}` })
-    .finally(() => { loading.value = false })
-  return { me: me, loading, error }
+    } finally {
+      if (currentRequest === requestId) loading.value = false
+    }
+  }, { immediate: true })
+
+  return { me, loading, error }
 }
 
 export function useProjects() {
   const projects = ref<Project[]>([])
   const loading = ref(true)
   const error = ref<string | null>(null)
+  const { language, t } = useLanguage()
+  let requestId = 0
 
-  fetch(`${API_URL}/projects`)
-    .then(r => {
-      if (!r.ok) {
-        throw new Error(`${r.status} ${r.statusText}`)
+  watch(language, async (locale) => {
+    const currentRequest = ++requestId
+    loading.value = true
+    error.value = null
+
+    try {
+      const response = await fetch(`${API_URL}/projects?lang=${locale}`)
+      if (!response.ok) throw new Error(`${response.status} ${response.statusText}`)
+      const data: Project[] = await response.json()
+      if (currentRequest === requestId) projects.value = data
+    } catch (cause) {
+      if (currentRequest === requestId) {
+        const detail = cause instanceof Error ? `: ${cause.message}` : ''
+        error.value = `${t('projectsError')}${detail}`
       }
-      return r.json()
-    })
-    .then(data => { projects.value = data })
-    .catch(e => { error.value = `Failed to load projects: ${e.message}` })
-    .finally(() => { loading.value = false })
+    } finally {
+      if (currentRequest === requestId) loading.value = false
+    }
+  }, { immediate: true })
 
   return { projects, loading, error }
 }

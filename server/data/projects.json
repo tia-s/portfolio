@@ -44,16 +44,17 @@
   },
   {
   "id": 4,
-  "title": "Portfolio",
-  "description": "Personal portfolio with a terminal-style search and AI chatbot powered by GPT-OSS-20B using context from my work",
-  "tech": ["Vue", "TypeScript", "SCSS", "FastAPI", "Python", "RapidFuzz"],
-  "url": "https://github.com/tia-s/portfolio",
-  "long_description": "A single-page portfolio built with Vue 3 and FastAPI, featuring a terminal-style interface with intent detection that routes queries between search and an AI chatbot. The chatbot is powered by GPT-OSS-20B via Groq and uses a lightweight RAG-style approach with fuzzy matching to inject relevant context from a curated Q&A dataset.",
-  "motivation": "I wanted a portfolio that felt more interactive than a typical static site. The terminal interface gave me a way to combine search and conversational interaction to give users more insight into my work and experience.",
+  "title": "Polyphonic Scorer",
+  "description": "An audio-to-notation pipeline that cleans, quantizes, and voices Basic Pitch note events into readable MusicXML",
+  "tech": ["Python", "NumPy", "basic-pitch", "music21", "MusicXML"],
+  "url": "https://github.com/tia-s/polyphonic-engine",
+  "long_description": "A 5-stage pipeline designed to process raw machine learning output from basic-pitch, using algorithms like Phase-Locked Loops and Kernel Density Estimation to handle rubato, clean up acoustic artifacts, and generate standardized, readable sheet music.",
+  "motivation": "Designed to bridge the gap between unquantized ML audio transcriptions and rigid notation software by correctly interpreting human micro-timing and filtering acoustic glitches.",
   "features": [
-    "Lightweight RAG pipeline using fuzzy matching to retrieve and inject relevant context",
-    "FastAPI backend with modular endpoints for search, chat, project and profile data",
-    "Vue 3 frontend with responsive design and SCSS styling"
+    "5-stage pipeline for denoising, tempo tracking, quantization, and voice separation",
+    "Elastic rubato tracking using a Phase-Locked Loop (PLL) to map flexible performance time",
+    "Dynamic voice separation with hand contour tracking and stem direction assignment",
+    "Automated key signature detection using the Krumhansl-Schmuckler algorithm"
   ]
-  }
+}
 ]

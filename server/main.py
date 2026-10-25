@@ -4,6 +4,7 @@ from fastapi.responses import JSONResponse
 
 import json
 import os 
+from typing import Literal
 
 from pathlib import Path
 
@@ -33,14 +34,20 @@ DATA_DIR = Path(__file__).parent / "data"
 # Chat/Search Helper Functions:
 class ChatRequest(BaseModel):
     message: str
+    language: Literal["en", "fr"] = "en"
 
-def _load_persona() -> list:
-    questions_path = DATA_DIR / "questions.json"
-    with open(questions_path) as f:
+def _load_persona(language: Literal["en", "fr"] = "en") -> list:
+    filename = "questions.fr.json" if language == "fr" else "questions.json"
+    questions_path = DATA_DIR / filename
+    with open(questions_path, encoding="utf-8") as f:
         return json.load(f)
     
-def _get_relevant_context(question: str, top_k: int = 3) -> str:
-    qa_pairs = _load_persona()
+def _get_relevant_context(
+    question: str,
+    language: Literal["en", "fr"] = "en",
+    top_k: int = 3,
+) -> str:
+    qa_pairs = _load_persona(language)
     questions = [item["q"] for item in qa_pairs]
 
     results = process.extract(
@@ -53,34 +60,39 @@ def _get_relevant_context(question: str, top_k: int = 3) -> str:
     matched = [qa_pairs[questions.index(match[0])] for match in results]
     return "\n".join([f"Q: {item['q']}\nA: {item['a']}" for item in matched])
 
-def _load_system_prompt() -> str:
-    prompt_path = DATA_DIR / "prompt.md"
-    with open(prompt_path) as f:
+def _load_system_prompt(language: Literal["en", "fr"] = "en") -> str:
+    filename = "prompt.fr.md" if language == "fr" else "prompt.md"
+    prompt_path = DATA_DIR / filename
+    with open(prompt_path, encoding="utf-8") as f:
         return f.read() 
 
 def read_json(filename: str):
-    with open(DATA_DIR / filename) as f:
+    with open(DATA_DIR / filename, encoding="utf-8") as f:
         return json.load(f)
 
+def read_language_data(filename: str, language: Literal["en", "fr"]):
+    localized_filename = f"{Path(filename).stem}.fr{Path(filename).suffix}"
+    return read_json(localized_filename if language == "fr" else filename)
+
 @app.get("/me")
-def get_owner():
-    data = read_json("me.json")
+def get_owner(lang: Literal["en", "fr"] = "en"):
+    data = read_language_data("me.json", lang)
     return JSONResponse(
         content=data,
         headers={"Cache-Control": "no-cache"}
     )
 
 @app.get("/projects")
-def get_projects():
-    data = read_json("projects.json")
+def get_projects(lang: Literal["en", "fr"] = "en"):
+    data = read_language_data("projects.json", lang)
     return JSONResponse(
         content=data,
         headers={"Cache-Control": "no-cache"}
     )
 
 @app.get("/projects/{project_id}")
-def get_project(project_id: int):
-    projects = read_json("projects.json")
+def get_project(project_id: int, lang: Literal["en", "fr"] = "en"):
+    projects = read_language_data("projects.json", lang)
     match = next((p for p in projects if p["id"] == project_id), None)
 
     if not match:
@@ -93,9 +105,9 @@ def get_project(project_id: int):
 
 @app.post("/chat")
 async def chat(request: ChatRequest):
-    persona = _get_relevant_context(request.message)
+    persona = _get_relevant_context(request.message, request.language)
 
-    system_prompt = _load_system_prompt()
+    system_prompt = _load_system_prompt(request.language)
     full_prompt = f"{system_prompt}\n\nContext from conversations with Tianna:\n{persona}"
 
     try:
@@ -113,19 +125,21 @@ async def chat(request: ChatRequest):
         raise HTTPException(status_code=500, detail=str(e))
 
 @app.get("/search")
-async def search(q: str):
-    data_path = DATA_DIR / "projects.json"
-    with open(data_path) as f:
-        projects = json.load(f)
-
+async def search(q: str, lang: Literal["en", "fr"] = "en"):
+    projects = read_language_data("projects.json", lang)
+    search_projects = [projects]
+    if lang == "fr":
+        search_projects.append(read_json("projects.json"))
     q_lower = q.lower()
 
-    results = [
-        project for project in projects
+    matching_ids = {
+        project["id"]
+        for source in search_projects
+        for project in source
         if q_lower in project["title"].lower()
         or q_lower in project["description"].lower()
         or q_lower in project["long_description"].lower()
         or any(q_lower in tech.lower() for tech in project["tech"])
-    ]
+    }
 
-    return results
+    return [project for project in projects if project["id"] in matching_ids]

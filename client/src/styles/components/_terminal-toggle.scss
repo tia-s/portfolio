@@ -1,7 +1,7 @@
 .terminal-toggle {
   position: fixed;
   top: var(--space-6);
-  right: calc(var(--space-6) + 36px + var(--space-3));
+  right: calc(var(--space-6) + 36px + 36px + var(--space-6) + var(--space-3));
   z-index: 50;
   width: 36px;
   height: 36px;
